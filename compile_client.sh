@@ -1,0 +1,1 @@
+gcc -o netclient netclient.c read_save.c -lm
