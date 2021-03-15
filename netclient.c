@@ -72,13 +72,13 @@ int main ()
 	// struct msg msg_read;
 	
 	//to sqrt
-	// setFlag(&msgToSend, CALCULATE_SQRT_RYQ);
-	// setReqIdInMsg(&msgToSend, generateReqIdInProcess());
-	// double numberToSqrt = 4;
-	// memcpy(&msgToSend.data, &numberToSqrt, 8);
-
-	setFlag(&msgToSend, GET_TIME_REQ);
+	setFlag(&msgToSend, CALCULATE_SQRT_RYQ);
 	setReqIdInMsg(&msgToSend, generateReqIdInProcess());
+	double numberToSqrt = 16;
+	memcpy(&msgToSend.data, &numberToSqrt, 8);
+
+	// setFlag(&msgToSend, GET_TIME_REQ);
+	// setReqIdInMsg(&msgToSend, generateReqIdInProcess());
 
 	safe_write(sockfd, &msgToSend, SIZE_BUFFER);
 	// write (sockfd, &buffer, SIZE_BUFFER);
