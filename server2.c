@@ -11,7 +11,6 @@
 #include <math.h>
 
 #include "read_save.h"
-#include "fun_server.h"
 
 char buffer[SIZE_BUFFER];
 

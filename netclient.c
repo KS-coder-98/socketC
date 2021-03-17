@@ -71,24 +71,35 @@ int main ()
 	struct msg msgToSend;
 	// struct msg msg_read;
 	
-	//to sqrt
+	// //to sqrt
 	setFlag(&msgToSend, CALCULATE_SQRT_RYQ);
 	setReqIdInMsg(&msgToSend, generateReqIdInProcess());
 	double numberToSqrt = 16;
+	if ( __FLOAT_WORD_ORDER__ != BIG_ENDIAN ){
+		numberToSqrt = htobe64(numberToSqrt);
+	}
 	memcpy(&msgToSend.data, &numberToSqrt, 8);
+
+	// // setFlag(&msgToSend, GET_TIME_REQ);
+	// // setReqIdInMsg(&msgToSend, generateReqIdInProcess());
+
+	safe_write(sockfd, &msgToSend, SIZE_BUFFER);
+
+	// //read
+	// //1arg -> deskryptor pliku (socket)
+	// //2arg -> adres buffora z ktorego bedziemy czytac odczytujemy z niego wartosc
+	// //3arg -> liczba bajtow ktora chcemy zapisac
+	// safe_read(sockfd, &buffer, SIZE_BUFFER);
+	// procesMsg(buffer);
+
+	// sleep(2);
 
 	// setFlag(&msgToSend, GET_TIME_REQ);
 	// setReqIdInMsg(&msgToSend, generateReqIdInProcess());
-
-	safe_write(sockfd, &msgToSend, SIZE_BUFFER);
-	// write (sockfd, &buffer, SIZE_BUFFER);
-
-	//read
-	//1arg -> deskryptor pliku (socket)
-	//2arg -> adres buffora z ktorego bedziemy czytac odczytujemy z niego wartosc
-	//3arg -> liczba bajtow ktora chcemy zapisac
+	// safe_write(sockfd, &msgToSend, SIZE_BUFFER);
 	safe_read(sockfd, &buffer, SIZE_BUFFER);
 	procesMsg(buffer);
+
 	close (sockfd);
 	exit (0);
 }

@@ -12,6 +12,7 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
+#include <endian.h>
 
 #define GET_TIME_REQ 1
 #define CALCULATE_SQRT_RYQ 2
@@ -20,15 +21,6 @@
 
 #define MAX_SIZE_DATA_MSG 64 // I think this is enought to data
 
-// struct msg
-// {
-// 	char f1;
-// 	char f2;
-// 	char f3;
-// 	char f4;
-// 	u_int32_t rq_id;
-// 	double value;
-// };
 
 struct msg
 {
@@ -65,4 +57,4 @@ void procesTimeMsgReq(void *msg);
 void procesSqrtMsgAns(void *msg);
 void procesSqrtMsgReq(void *msg);
 
-#endif READ_SAVE_H
+#endif

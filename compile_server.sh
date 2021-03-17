@@ -1,1 +1,1 @@
-gcc -o server2 server2.c fun_server.c read_save.c -lm
+gcc -o server2 server2.c read_save.c -lm

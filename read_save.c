@@ -129,7 +129,11 @@ void procesTimeMsgAns(void *msg)
 	time_t time_from_server;
 	memcpy(&size_time, tempMsg->data, sizeof(size_t));
 	memcpy(&time_from_server, tempMsg->data+size_time, size_time);
-	printf("seconds %ld\n", time_from_server);
+	struct tm *timeHuman;
+	timeHuman = localtime(&time_from_server);
+	char tabTemp[30];
+	strftime(tabTemp, 30, "%H:%M:%S", timeHuman);
+	printf("seconds %s\n", tabTemp);
 }
 
 void procesTimeMsgReq(void *msg)
@@ -151,6 +155,9 @@ void procesSqrtMsgAns(void *msg)
 	struct msg *tempMasg = msg;
 	double value;
 	memcpy(&value, tempMasg->data, sizeof(double));
+	if ( __FLOAT_WORD_ORDER__ != BIG_ENDIAN ){
+		value = htobe64(value);
+	}
 	printf("square root is equl %lf\n", value);
 }
 
@@ -161,6 +168,12 @@ void procesSqrtMsgReq(void *msg)
 	setReqIdInMsg(msg, generateReqIdInProcess());
 	double value;
 	memcpy(&value, tempMasg->data, 8);
+	if ( __FLOAT_WORD_ORDER__ != BIG_ENDIAN ){
+		value = htobe64(value);
+	}
 	double tempSqrt = sqrt(value);
+		if ( __FLOAT_WORD_ORDER__ != BIG_ENDIAN ){
+		tempSqrt = htobe64(tempSqrt);
+	}
 	setSqrtValueInMsg(msg, tempSqrt);
 }
